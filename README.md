@@ -20,6 +20,7 @@ W, H <= 1000
 X, Y <= W, H
 
 Sample Input
+
 3
 3 3 2
 0 1 1

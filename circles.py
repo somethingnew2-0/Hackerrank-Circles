@@ -80,7 +80,7 @@ for test in range(0, int(tests)):
 	
 	for idx, detector in enumerate(detectors):
 		for idx2, neighbor in enumerate(detectors):
-			if detector == neighbor or Edge(idx, idx2, 0) in g.get_edges(idx):
+			if Edge(idx, idx2, 0) in g.get_edges(idx):
 				continue
 			#print "distance " + str(distance(detector.get_position(), neighbor.get_position()))
 			#print "radii " + str(detector.radius + neighbor.radius)
