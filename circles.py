@@ -25,7 +25,7 @@ class FlowNetwork(object):
             raise ValueError("u == v")
 
         edge = Edge(u,v,w)
-        print edge
+        #print edge
         redge = Edge(v,u,0)
         edge.redge = redge
         redge.redge = edge
@@ -81,8 +81,8 @@ for test in range(0, int(tests)):
 		for idx2, neighbor in enumerate(detectors):
 			if detector == neighbor or Edge(idx, idx2, 0) in g.get_edges(idx):
 				continue
-			print "distance " + str(distance(detector.get_position(), neighbor.get_position()))
-			print "radii " + str(detector.radius + neighbor.radius)
+			#print "distance " + str(distance(detector.get_position(), neighbor.get_position()))
+			#print "radii " + str(detector.radius + neighbor.radius)
 			if distance(detector.get_position(), neighbor.get_position()) <= detector.radius + neighbor.radius:
 				g.add_edge(idx, idx2, 1)
 				
@@ -96,7 +96,7 @@ for test in range(0, int(tests)):
 	
 	# detect circles overlapping left edge to connect to source and vice-versus for sink
 	for idx, detector in enumerate(detectors):
-		print "x " + str(detector.x) + " radius " + str(detector.radius)
+		#print "x " + str(detector.x) + " radius " + str(detector.radius)
 		if detector.x - detector.radius <= 0:
 			g.add_edge(source, idx, 1)
 		if detector.x + detector.radius >= int(width):
