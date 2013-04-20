@@ -7,7 +7,7 @@ class Edge(object):
         return "%s->%s:%s" % (self.source, self.sink, self.capacity)
 		
 	def __eq__(self, other):
-        return self.source == other.source && self.sink = other.sink
+		return self.source == other.source and self.sink == other.sink
  
 class FlowNetwork(object):
     def __init__(self):
@@ -59,10 +59,12 @@ class Detector(object):
 		self.radius = radius
 	def get_position(self):
 		return (self.x, self.y)
-	def distance(p0, p1):
-		return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
+		
+def distance(p0, p1):
+	return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
 		
 import sys
+import math
 tests = sys.stdin.readline()
 for test in range(0, int(tests)):
 	width, height, number = sys.stdin.readline().split()
@@ -70,22 +72,22 @@ for test in range(0, int(tests)):
 	g=FlowNetwork()
 	for circle in range(0, int(number)):
 		x, y, radius = sys.stdin.readline().split()
-		detectors.append(Detector(x, y, radius))
+		detectors.append(Detector(int(x), int(y), int(radius)))
 		g.add_vertex(circle)
 	
 	for idx, detector in enumerate(detectors):
 		for idx2, neighbor in enumerate(detectors):
-			if detector == neighbor || Edge(idx, idx2, 0) in g.get_edges(idx):
+			if detector == neighbor or Edge(idx, idx2, 0) in g.get_edges(idx):
 				continue
-			if Detector.distance(detector.get_position(), neighbor.get_position()) <= detector.radius + neighbor.radius:
+			if distance(detector.get_position(), neighbor.get_position()) <= detector.radius + neighbor.radius:
 				g.add_edge(idx, idx2, 1)
 				
 	# add the source and sink of the graph
 	# source
-	source = number
+	source = int(number)
 	g.add_vertex(source)
 	# sink
-	sink = number + 1
+	sink = int(number) + 1
 	g.add_vertex(sink)
 	
 	# detect circles overlapping left edge to connect to source and vice-versus for sink
@@ -95,4 +97,5 @@ for test in range(0, int(tests)):
 		if detector.x + detector.radius >= width:
 			g.add_edge(sink, idx, 1)	
 
+			
 	print g.max_flow(source, sink)
