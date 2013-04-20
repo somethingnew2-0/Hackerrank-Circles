@@ -77,16 +77,22 @@ for test in range(0, int(tests)):
 		for idx2, neighbor in enumerate(detectors):
 			if detector == neighbor || Edge(idx, idx2, 0) in g.get_edges(idx):
 				continue
-			if(Detector.distance(detector.get_position(), neighbor.get_position()) <= detector.radius + neighbor.radius):
+			if Detector.distance(detector.get_position(), neighbor.get_position()) <= detector.radius + neighbor.radius:
 				g.add_edge(idx, idx2, 1)
+				
+	# add the source and sink of the graph
+	# source
+	source = number
+	g.add_vertex(source)
+	# sink
+	sink = number + 1
+	g.add_vertex(sink)
+	
+	# detect circles overlapping left edge to connect to source and vice-versus for sink
+	for idx, detector in enumerate(detectors):
+		if detector.x - detector.radius <= 0:
+			g.add_edge(source, idx, 1)
+		if detector.x + detector.radius >= width:
+			g.add_edge(sink, idx, 1)	
 
-	map(g.add_vertex, ['s','o','p','q','r','t'])
-	g.add_edge('s','o',3)
-	g.add_edge('s','p',3)
-	g.add_edge('o','p',2)
-	g.add_edge('o','q',3)
-	g.add_edge('p','r',2)
-	g.add_edge('r','t',3)
-	g.add_edge('q','r',4)
-	g.add_edge('q','t',2)
-	print g.max_flow('s','t')
+	print g.max_flow(source, sink)
