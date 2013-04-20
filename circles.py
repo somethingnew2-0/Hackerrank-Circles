@@ -22,7 +22,7 @@ class FlowNetwork(object):
  
     def add_edge(self, u, v, w=0):
         if u == v:
-            raise ValueError("u == v")
+            return
 
         edge = Edge(u,v,w)
         #print edge
@@ -66,6 +66,7 @@ def distance(p0, p1):
 	return math.sqrt((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)
 		
 import sys
+sys.setrecursionlimit(10000)
 import math
 tests = sys.stdin.readline()
 for test in range(0, int(tests)):
