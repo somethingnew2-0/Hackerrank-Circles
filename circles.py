@@ -80,12 +80,15 @@ for test in range(0, int(tests)):
 	
 	for idx, detector in enumerate(detectors):
 		for idx2, neighbor in enumerate(detectors):
-			if Edge(idx, idx2, 0) in g.get_edges(idx):
+			if detector == neighbor or Edge(idx, idx2, 0) in g.get_edges(idx):
 				continue
 			#print "distance " + str(distance(detector.get_position(), neighbor.get_position()))
 			#print "radii " + str(detector.radius + neighbor.radius)
 			if distance(detector.get_position(), neighbor.get_position()) <= detector.radius + neighbor.radius:
-				g.add_edge(idx, idx2, 1)
+				if detector.x <= neighbor.x:
+					g.add_edge(idx, idx2, 1)
+				else:
+					g.add_edge(idx2, idx, 1)
 				
 	# add the source and sink of the graph
 	# source
